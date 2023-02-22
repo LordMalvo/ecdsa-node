@@ -18,6 +18,13 @@ app.get("/balance/:address", (req, res) => {
   res.send({ balance });
 });
 
+app.post("/transfer", (req, res) => {
+  const { sender, recipient, amount } = req.body;
+
+  const balance = balances[address] || 0;
+  res.send({ balance });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
