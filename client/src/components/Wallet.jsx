@@ -2,8 +2,7 @@ import server from "../server";
 import "./wallets.css";
 import { useState } from "react";
 
-const Wallet = ({setAddress}) => {
-    const [balance, setBalance] = useState(0);
+const Wallet = ({setAddress, balance, setBalance}) => {
 
     const changeBalance = async (event) => {
         const address = event.target.value;

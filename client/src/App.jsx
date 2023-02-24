@@ -5,10 +5,11 @@ import './App.css'
 
 function App() {
   const [address, setAddress] = useState("");
+  const [balance, setBalance] = useState(0);
   return (
     <div className="app">
-      <Wallet setAddress={setAddress}></Wallet>
-      <Transfer address={address}></Transfer>
+      <Wallet balance={balance} setBalance={setBalance} setAddress={setAddress}></Wallet>
+      <Transfer address={address} setBalance={setBalance}></Transfer>
     </div>
   )
 }

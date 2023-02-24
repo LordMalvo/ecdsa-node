@@ -2,27 +2,32 @@ import server from "../server";
 import "./wallets.css";
 import { useState } from "react";
 
-const Transfer = ({address}) => {
+const Transfer = ({address, setBalance}) => {
     const [recipient, setRecipient] = useState("");
     const [amount, setAmount] = useState(0);
 
     const sendAmount = async () => {
-        if(recipient && amount) {
-            await server.post(`send`, {
+        if(recipient!=="" && amount!==0) {
+            await server.post(`transfer`, {
                 sender: address,
                 recipient: recipient,
                 amount: parseInt(amount)
-            });
-            
+            }).then(function (res) {
+                const senderBalance = res.data.balance;
+                setBalance(senderBalance);
+            }
+            ).catch(function (error){
+                console.log(error.response.data.message);
+            })
         }
     }
 
     const changeRecipient = (ev) => {
-        setRecipient(ev.targe.value);
+        setRecipient(ev.target.value);
     }
 
     const changeAmount = (ev) => {
-        setAmount(ev.targe.value);
+        setAmount(ev.target.value);
     }
 
     return (

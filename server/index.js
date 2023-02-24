@@ -20,9 +20,13 @@ app.get("/balance/:address", (req, res) => {
 
 app.post("/transfer", (req, res) => {
   const { sender, recipient, amount } = req.body;
-
-  const balance = balances[address] || 0;
-  res.send({ balance });
+  if (balances[sender] < amount) {
+    res.status(400).send({ message: "Not enough founds!" });
+  } else {
+    balances[recipient] = balances[recipient] + amount;
+    balances[sender] = balances[sender] - amount;
+    res.send({ balance: balances[sender] });
+  }
 });
 
 app.listen(port, () => {
