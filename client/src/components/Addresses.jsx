@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
 import server from "../server";
+import "./addresses.css"
 
-const Addresses = () => {
-    const [addresses, setAddresses] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-          const res = await server.get(`info`);
-          setAddresses(res.data.balances)
-        }
-        fetchData();
-    }, []);
-
+const Addresses = ({addresses, setAddresses}) => {
     return(
-        addresses.map(obj => (
-            <h2>{obj.address}</h2>
-        ))
+        <div className="addresses">
+            <h1>Addresses generated:</h1>
+            { addresses ?
+                addresses.map(obj => (
+                    <h2>{obj.address}</h2>
+                ))
+                :
+                <h2>Loading...</h2>
+            }
+        </div>
     )
 
 }

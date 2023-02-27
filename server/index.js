@@ -13,7 +13,10 @@ console.log(balances);
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
   const data = balances.find((obj) => obj.address === address);
-  const balance = data.balance;
+  let balance = 0
+  if(data!==undefined){
+    balance = data.balance;
+  }
   res.send({ balance });
 });
 
