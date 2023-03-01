@@ -5,11 +5,14 @@ import Addresses from './components/Addresses'
 import './App.css'
 import { useEffect } from 'react'
 import server from './server'
+import Info from './components/Info'
 
 function App() {
   const [address, setAddress] = useState("");
   const [balance, setBalance] = useState(0);
   const [addresses, setAddresses] = useState([]);
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,9 +26,12 @@ function App() {
     <div>
       <div className="app">
         <Wallet balance={balance} setBalance={setBalance} setAddress={setAddress} addresses={addresses}></Wallet>
-        <Transfer address={address} setBalance={setBalance}></Transfer>
+        <Transfer amount={amount} setAmount={setAmount} recipient={recipient} setRecipient={setRecipient} address={address} setBalance={setBalance}></Transfer>
       </div>
-      <Addresses addresses={addresses} setAddresses={setAddresses}></Addresses>
+      <div className="info">
+        <Addresses addresses={addresses} setAddresses={setAddresses}></Addresses>
+        <Info sender={address} recipient={recipient} amount={amount}></Info>
+      </div>
     </div>
   )
 }

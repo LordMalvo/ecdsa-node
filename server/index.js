@@ -2,19 +2,19 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const port = 3042;
-const adresses = require("./cryptography");
+const crypto = require("./cryptography");
 
 app.use(cors());
 app.use(express.json());
 
-const balances = adresses.generate();
+const balances = crypto.generate();
 console.log(balances);
 
 app.get("/balance/:address", (req, res) => {
   const { address } = req.params;
   const data = balances.find((obj) => obj.address === address);
-  let balance = 0
-  if(data!==undefined){
+  let balance = 0;
+  if (data !== undefined) {
     balance = data.balance;
   }
   res.send({ balance });
@@ -36,6 +36,12 @@ app.post("/transfer", (req, res) => {
     dataSender.balance = dataSender.balance - amount;
     res.send({ balance: dataSender.balance });
   }
+});
+
+app.get("/hash/:tx", (req, res) => {
+  const { tx } = req.params;
+  const hash = crypto.hash(tx);
+  res.send({ hash });
 });
 
 app.listen(port, () => {

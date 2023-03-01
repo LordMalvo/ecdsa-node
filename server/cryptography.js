@@ -1,5 +1,5 @@
 const secp = require("ethereum-cryptography/secp256k1");
-const { toHex } = require("ethereum-cryptography/utils");
+const { toHex, utf8ToBytes } = require("ethereum-cryptography/utils");
 const { keccak256 } = require("ethereum-cryptography/keccak");
 
 const generate = () => {
@@ -18,4 +18,8 @@ const generate = () => {
   return balances;
 };
 
-module.exports = { generate };
+const hash = (info) => {
+  return toHex(keccak256(utf8ToBytes(info)));
+};
+
+module.exports = { generate, hash };

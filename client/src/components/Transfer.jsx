@@ -2,9 +2,9 @@ import server from "../server";
 import "./wallets.css";
 import { useState } from "react";
 
-const Transfer = ({address, setBalance}) => {
-    const [recipient, setRecipient] = useState("");
-    const [amount, setAmount] = useState(0);
+const Transfer = ({address, setBalance, recipient, setRecipient, amount, setAmount}) => {
+    //const [recipient, setRecipient] = useState("");
+    //const [amount, setAmount] = useState(0);
 
     const sendAmount = async () => {
         if(recipient!=="" && amount!==0) {
